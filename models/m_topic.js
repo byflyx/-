@@ -33,3 +33,25 @@ exports.getTopic_titleById=(topicID,callback)=>{
         callback(null,data);
     })
 }
+
+//根据传过来的id找到对应的数据，并删除该数据
+exports.deleteTopicData=(topicID,callback)=>{
+    const sql='delete from `topics` where id=?';
+    connection.query(sql,topicID,(err,data)=>{
+        if(err) {
+            return callback(err);
+        }
+        callback(null,data);
+    })
+}
+
+// 显示文章编辑页
+// exports.getTopicEditById=(topicID,callback)=>{
+//     const sql='select * from `topics` where id=?';
+//     connection.query(sql,topicID,(err,data)=>{
+//         if(err) {
+//             return callback(err);
+//         }
+//         callback(null,data);
+//     })
+// }

@@ -27,9 +27,14 @@ exports.showCreateTopic=(req,res)=>{
 exports.createTopic=(req,res)=>{
     //获得表单数据
     const body=req.body;
+    
+    
     body.createdAt=moment().format();
     
-    body.userId=req.session.id;
+    body.userId=req.session.user.id;
+    // console.log(body.userId);
+    // console.log(body);
+    
     M_topic.insertTopic(body,(err,data)=>{
         if(err){
             return res.send({
@@ -59,12 +64,51 @@ exports.showDetailTopic=(req,res)=>{
                 msg: '服务器错了'
             })
         }
+        //如果查询到的结果为空
+        // if(data.length ===0) {
+        //     //展示相应的页面
+        // }
         res.render('topic/show.html',{
-            topicTitle: data,
+            topicTitle: data[0],
+            //将用户的信息也传过去
+            sessionUserId: req.session.user ? req.session.user.id : 0
         });
-        // console.log(data);
-
+    }) 
+}
+//删除文章列表
+exports.deleteTopic=(req,res)=>{
+    const topicID=req.params.topicID;
+    M_topic.deleteTopicData(topicID,(err,data)=>{
+        if(err) {
+            return res.send({
+                code: 500,
+                msg: '服务器错了'
+            })
+        }
+        if(data.length == 0) {
+            return res.send({
+                code: 1,
+                msg: '该文章已经被删除'
+            })
+        }
+        //文章删除成功，返回列表额页
+        res.redirect('/');
     })
+}
+
+//显示文章编辑页
+exports.showEditTopic=(req,res)=>{
+    // const topicID=req.params.topicID;
+    // M_topic.getTopic_titleById(topicID,(err,data)=>{
+    //     if(err) {
+    //         return res.send({
+    //             code: 500,
+    //             msg: '服务器出错了'
+    //         })
+    //     }
+        res.render('topic/edit/html')
+            // topicTitle: data[0],
+        // });
     
    
 }
