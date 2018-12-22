@@ -46,12 +46,12 @@ exports.deleteTopicData=(topicID,callback)=>{
 }
 
 // 显示文章编辑页
-// exports.getTopicEditById=(topicID,callback)=>{
-//     const sql='select * from `topics` where id=?';
-//     connection.query(sql,topicID,(err,data)=>{
-//         if(err) {
-//             return callback(err);
-//         }
-//         callback(null,data);
-//     })
-// }
+exports.topicEdit=(body,topicID,callback)=>{
+    const sql='update `topics` set ? where id=?';
+    connection.query(sql,[body,topicID],(err,data)=>{
+        if(err) {
+            return callback(err);
+        }
+        callback(null,data);
+    })
+}

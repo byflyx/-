@@ -1,1 +1,7 @@
 https://github.com/lzz-dragon/news57.git
+git init
+git status
+git add .
+git commit -m "zhushi"
+git remote add origin https://github.com/lzz-dragon/news57.git ¹ØÁª²Ö¿â
+git push -u origin master

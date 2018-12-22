@@ -50,3 +50,65 @@ exports.signinOut=(req,res)=>{
     delete req.session.user;
     res.redirect('/signin');
 }
+
+//注册用户---显示注册页面
+exports.showSignup=(req,res)=>{
+    res.render('signup.html');
+}
+
+// 注册处理
+exports.handleSignup=(req,res)=>{
+    //获取表单数据
+    const body=req.body;
+    //验证邮箱是否存在---body.email==数据库中得到的数据
+    M_user.checkEmail(body.email,(err,data)=>{
+        if(err) {
+            return res.send({
+                code: 500,
+                msg: '服务器出错'
+            })
+        }
+        // console.log(data);
+        if(data.length !== 0) {
+            //则说明邮箱存在
+            return res.send({
+                code: 1,
+                msg:'该邮箱存在请重新输入'
+            })
+        }
+        //否则邮箱不存在，可以继续注册---验证昵称
+        M_user.checkNickName(body.nickname,(err,data)=>{
+            if(err) {
+                return res.send({
+                    code: 500,
+                    msg: '服务器出错'
+                })
+            }
+            //如果昵称存在
+            if(data.length !== 0) {
+                //则说明邮箱存在
+                return res.send({
+                    code: 1,
+                    msg:'该昵称存在请重新输入'
+                })
+            }
+            //如果昵称不存在，就添加新用户
+            M_user.addUser(body,(err,data)=>{
+                if(err){
+                    return res.send({
+                        code: 500,
+                        msg: '服务器错了'
+                    })
+                }
+                res.send({
+                    code: 200,
+                    msg: '注册成功'
+                })
+
+            })
+
+        })
+    })
+
+    //
+}

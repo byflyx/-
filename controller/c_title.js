@@ -98,17 +98,32 @@ exports.deleteTopic=(req,res)=>{
 
 //显示文章编辑页
 exports.showEditTopic=(req,res)=>{
-    // const topicID=req.params.topicID;
-    // M_topic.getTopic_titleById(topicID,(err,data)=>{
-    //     if(err) {
-    //         return res.send({
-    //             code: 500,
-    //             msg: '服务器出错了'
-    //         })
-    //     }
-        res.render('topic/edit/html')
-            // topicTitle: data[0],
-        // });
-    
-   
+    const topicID=req.params.topicID;
+    M_topic.getTopic_titleById(topicID,(err,data)=>{
+        if(err) {
+            return res.send({
+                code: 500,
+                msg: '服务器出错了'
+            })
+        }
+        res.render('topic/edit.html',{
+            topicTitle: data[0],});
+    })
+}
+exports.editTopic=(req,res)=>{
+    //获取表单数据
+    const body=req.body;
+    const topicID=req.params.topicID;
+    M_topic.topicEdit(body,topicID,(err,data)=>{
+        if(err){
+            return res.send({
+                code: 500,
+                msg: '服务器异常'
+            })
+        }
+        res.send({
+            code: 200,
+            msg: '修改文章成功'
+        })
+    })
 }

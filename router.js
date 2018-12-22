@@ -23,6 +23,11 @@ router
     .get('/topic/:topicID/delete',c_topic.deleteTopic)
     // 文章编辑页展示
     .get('/topic/:topicID/edit',c_topic.showEditTopic)
+    //编辑文章
+    .post('/edit/topic/:topicID',c_topic.editTopic)
+    //注册
+    .get('/signup',c_login.showSignup)
+    .post('/signup',c_login.handleSignup)
     ;
 
 //导出路由对象
