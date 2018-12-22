@@ -35,7 +35,7 @@ exports.handleLogin=(req,res)=>{
         }
         //登录成功，保存session(session里面保存的就是用户信息) 
         req.session.user=data[0];
-        console.log(req.session.user);
+        // console.log(req.session.user);
          res.send({
                 code: 200,
                 msg: '验证成功'

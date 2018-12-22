@@ -22,7 +22,7 @@ router
     // 删除文章请求
     .get('/topic/:topicID/delete',c_topic.deleteTopic)
     // 文章编辑页展示
-    .get('/topic/detail/edit',c_topic.showEditTopic)
+    .get('/topic/:topicID/edit',c_topic.showEditTopic)
     ;
 
 //导出路由对象

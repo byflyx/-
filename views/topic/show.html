@@ -25,7 +25,7 @@
 
                     <h1>{{topicTitle.title}}</h1>
                     {{if sessionUserId === topicTitle.userId}}
-                    <a href="/topic/detail/edit">编辑</a>
+                    <a href="/topic/{{topicTitle.id}}/edit">编辑</a>
                     <a href="/topic/{{topicTitle.id}}/delete" id="delete_topic">删除</a>
                     {{/if}}
                     <hr> {{topicTitle.content}}
